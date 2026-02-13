@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gestión de Mis Citas - UIS Salud</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec37",
+                        "primary-dark": "#10c92f", 
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102213",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* iOS Safe Area Support */
+        .safe-top {
+            padding-top: env(safe-area-inset-top);
+        }
+        .safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-100 antialiased min-h-screen flex flex-col">
+<!-- iOS Status Bar Placeholder -->
+<div class="h-12 w-full bg-background-light dark:bg-background-dark safe-top fixed top-0 z-50"></div>
+<!-- Sticky Header -->
+<header class="sticky top-0 z-40 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-primary/10 pt-14 pb-2 px-4 shadow-sm">
+<div class="flex justify-between items-end mb-2">
+<div>
+<h2 class="text-sm font-medium text-primary uppercase tracking-wider mb-1">UIS Salud</h2>
+<h1 class="text-3xl font-bold text-slate-900 dark:text-white">Mis Citas</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-icons text-slate-600 dark:text-slate-300">notifications_none</span>
+</button>
+</div>
+</header>
+<!-- Persistent Info Banner -->
+<div class="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-4 mx-4 mt-4 rounded-r-lg shadow-sm flex items-start gap-3">
+<span class="material-icons text-blue-600 dark:text-blue-400 text-xl mt-0.5">info</span>
+<p class="text-sm text-blue-800 dark:text-blue-200 leading-snug">
+<strong>Política de Cambios:</strong> Solo se permite modificar o cancelar citas con un mínimo de <span class="font-bold underline decoration-primary decoration-2">2 horas de antelación</span>.
+        </p>
+</div>
+<!-- Main Content List -->
+<main class="flex-1 px-4 py-6 space-y-5 pb-24">
+<!-- Appointment Card 1: Standard (Editable) -->
+<article class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden relative group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="p-5">
+<!-- Header with Date/Time & Status -->
+<div class="flex justify-between items-start mb-4">
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Jueves, 24 Oct</span>
+<span class="text-2xl font-bold text-slate-800 dark:text-white">10:00 AM</span>
+</div>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-green-800 dark:text-green-200 border border-primary/30">
+                        Confirmada
+                    </span>
+</div>
+<!-- Doctor Info -->
+<div class="flex items-start gap-4 mb-5">
+<img alt="Portrait of a smiling male doctor" class="w-14 h-14 rounded-full object-cover border-2 border-slate-100 dark:border-slate-700 bg-slate-100" data-alt="Doctor Juan Perez Portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6ko7lB256LH9LX_1cVmRlby3pnjKavB8PtLiHf1i4_gbjEZzwUKbNkAEnbjGFU4VrKrkE6Gfg-aea_MUss2UU1duEGXbNJ_NCE2evRsj9ANIz-LwJbyrppyjank3pwtqUax6yse81BXg1YGjyUv2BsLT0U_iUmcCXOZm-MXRnrXB-nLMTSrFc4Vr7h_RUGSp-VxQ00vygwVDGdFX5A174UAHvsWor-_ua1L-komDg59w7E2EJ1cyvn0TuXJi3AJfLU5LWC8Nucg"/>
+<div>
+<h3 class="font-bold text-lg text-slate-900 dark:text-white">Dr. Juan Pérez</h3>
+<p class="text-primary font-medium text-sm mb-1">Odontología</p>
+<div class="flex items-center text-slate-500 dark:text-slate-400 text-xs">
+<span class="material-icons text-[14px] mr-1">location_on</span>
+                            Consultorio 302, Edificio Bienestar
+                        </div>
+</div>
+</div>
+<!-- Actions (Enabled) -->
+<div class="grid grid-cols-2 gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+<button class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg border border-primary text-primary hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors font-medium text-sm">
+<span class="material-icons text-sm">edit_calendar</span>
+                        Postergar
+                    </button>
+<button class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-colors font-medium text-sm">
+                        Cancelar
+                    </button>
+</div>
+</div>
+</article>
+<!-- Appointment Card 2: Locked (Less than 2 hours) -->
+<article class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden relative opacity-90">
+<!-- Warning Stripe -->
+<div class="bg-amber-50 dark:bg-amber-900/20 px-4 py-2 flex items-center gap-2 border-b border-amber-100 dark:border-amber-800/30">
+<span class="material-icons text-amber-500 text-sm">warning</span>
+<p class="text-xs font-medium text-amber-700 dark:text-amber-400">Menos de 2h - Cambios restringidos</p>
+</div>
+<div class="absolute top-0 left-0 w-1 h-full bg-slate-300 dark:bg-slate-700"></div>
+<div class="p-5">
+<!-- Header with Date/Time & Status -->
+<div class="flex justify-between items-start mb-4">
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Hoy</span>
+<span class="text-2xl font-bold text-slate-800 dark:text-white">08:30 AM</span>
+</div>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+                        Inminente
+                    </span>
+</div>
+<!-- Doctor Info -->
+<div class="flex items-start gap-4 mb-5 opacity-75">
+<img alt="Portrait of a female doctor looking professional" class="w-14 h-14 rounded-full object-cover border-2 border-slate-100 dark:border-slate-700 bg-slate-100 grayscale" data-alt="Dra. Ana Gomez Portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5AQJAt97X6iShixCfV34cX7qkO58eGQrY7Ftsf2ic9JsuMz6-oO_EZHNIba0e2EroANxjAqPfQjeIQEXgHLFd9xkm6Krp9MkphIPawJCWp-HrSuZsuMYIESQkT5blhcoOjt7-pFH7I9sz681apDnWVsWqi82m3Yx33zRVSO63iOVdFjiPB_CyBLlbMHWt0e4dc_UifacV6_lYkVr4L5Jthz2HFbO4l5xiwhV_Zn2dAyUeOi8t11fgCpHvYZrvXRk-Le5kAtGUBA"/>
+<div>
+<h3 class="font-bold text-lg text-slate-900 dark:text-white">Dra. Ana Gómez</h3>
+<p class="text-slate-500 dark:text-slate-400 font-medium text-sm mb-1">Medicina General</p>
+<div class="flex items-center text-slate-500 dark:text-slate-400 text-xs">
+<span class="material-icons text-[14px] mr-1">location_on</span>
+                            Consultorio 105, Planta Baja
+                        </div>
+</div>
+</div>
+<!-- Actions (Disabled/Locked) -->
+<div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+<div class="grid grid-cols-2 gap-3 mb-2">
+<button class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-400 border border-transparent cursor-not-allowed font-medium text-sm" disabled="">
+                            Postergar
+                        </button>
+<button class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-400 cursor-not-allowed font-medium text-sm" disabled="">
+                            Cancelar
+                        </button>
+</div>
+<!-- Penalty Warning -->
+<div class="flex items-center justify-center gap-1.5 text-xs text-rose-500 font-medium mt-1">
+<span class="material-icons text-[14px]">payments</span>
+                        Inasistencia generará multa
+                    </div>
+</div>
+</div>
+</article>
+<!-- Appointment Card 3: Standard (Editable) -->
+<article class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden relative group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-4">
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Viernes, 01 Nov</span>
+<span class="text-2xl font-bold text-slate-800 dark:text-white">02:15 PM</span>
+</div>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-green-800 dark:text-green-200 border border-primary/30">
+                        Confirmada
+                    </span>
+</div>
+<div class="flex items-start gap-4 mb-5">
+<img alt="Portrait of a friendly male specialist doctor" class="w-14 h-14 rounded-full object-cover border-2 border-slate-100 dark:border-slate-700 bg-slate-100" data-alt="Dr. Roberto Silva Portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPIWlM8MTgVrbvptPP0T6MqhnAEuXL-y2sI2PHi-d0GqKAdAXSyJ_TPPA92LhYa3pnDycdMXxK93yJxEq386htjrNXHFQTZwRB65e9bsBUhzeNEX10B0geIO3iDzWiZGsULJUaYrhmWQ365AkaaUhGIrfrRtDUDjfKrT_g0jvZGYuFMpNhHxLfTjTMRjH9RbGXNKNkO3HHCmdBayIjY7VcH9yC5vlIitlNWv1QAoQo_6tTv4K14yQxHTVXa_8g6g38hAq_qUfAzA"/>
+<div>
+<h3 class="font-bold text-lg text-slate-900 dark:text-white">Dr. Roberto Silva</h3>
+<p class="text-primary font-medium text-sm mb-1">Psicología</p>
+<div class="flex items-center text-slate-500 dark:text-slate-400 text-xs">
+<span class="material-icons text-[14px] mr-1">location_on</span>
+                            Consultorio 401, Ala Norte
+                        </div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+<button class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg border border-primary text-primary hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors font-medium text-sm">
+<span class="material-icons text-sm">edit_calendar</span>
+                        Postergar
+                    </button>
+<button class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-colors font-medium text-sm">
+                        Cancelar
+                    </button>
+</div>
+</div>
+</article>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 w-full bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 safe-bottom z-50">
+<div class="grid grid-cols-3 h-16 max-w-md mx-auto">
+<button class="flex flex-col items-center justify-center gap-1 text-primary">
+<span class="material-icons">calendar_today</span>
+<span class="text-[10px] font-medium">Citas</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+<span class="material-icons">history</span>
+<span class="text-[10px] font-medium">Historial</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+<span class="material-icons">person_outline</span>
+<span class="text-[10px] font-medium">Perfil</span>
+</button>
+</div>
+</nav>
+</body></html>
