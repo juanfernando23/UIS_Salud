@@ -58,6 +58,19 @@ function App() {
     setAppointments([...updated]);
   };
 
+  const rescheduleAppointment = (appointmentId, newDetails) => {
+    const all = JSON.parse(localStorage.getItem('uis_appointments') || '{}');
+    const userApps = all[user.id] || [];
+    const updated = userApps.map(app => 
+      app.id === appointmentId 
+        ? { ...app, ...newDetails, updatedAt: new Date().toISOString() } 
+        : app
+    );
+    all[user.id] = updated;
+    localStorage.setItem('uis_appointments', JSON.stringify(all));
+    setAppointments([...updated]);
+  };
+
   const handleLogin = (userData) => {
     setUser(userData);
     localStorage.setItem('uis_current_user', JSON.stringify(userData));
@@ -75,7 +88,7 @@ function App() {
           <Route path="/login" element={!user ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={user ? <Dashboard user={user} appointments={appointments} /> : <Navigate to="/login" />} />
           <Route path="/my-appointments" element={user ? <MyAppointments appointments={appointments} onCancel={cancelAppointment} /> : <Navigate to="/login" />} />
-          <Route path="/schedule" element={user ? <ScheduleAppointment onAdd={addAppointment} /> : <Navigate to="/login" />} />
+          <Route path="/schedule" element={user ? <ScheduleAppointment onAdd={addAppointment} onUpdate={rescheduleAppointment} /> : <Navigate to="/login" />} />
           <Route path="/" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
         </Routes>
       </Layout>

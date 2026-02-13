@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-const ScheduleAppointment = ({ onAdd }) => {
+const ScheduleAppointment = ({ onAdd, onUpdate }) => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
+  const location = useLocation();
+  const editingApp = location.state?.appointment;
+
+  const [step, setStep] = useState(editingApp ? 1 : 1);
   const [selection, setSelection] = useState({
-    sede: '',
-    specialty: '',
-    doctor: '',
-    date: '',
-    time: ''
+    sede: editingApp?.sede || '',
+    specialty: editingApp?.specialty || '',
+    doctor: editingApp?.doctor || '',
+    date: editingApp?.date || '',
+    time: editingApp?.time || ''
   });
 
   // System data: sedes, specialties, doctors, times
@@ -44,14 +47,20 @@ const ScheduleAppointment = ({ onAdd }) => {
 
   const handleConfirm = () => {
     const doctorInfo = doctors[selection.specialty]?.find(d => d.name === selection.doctor);
-    onAdd({
+    const appDetails = {
       sede: selection.sede,
       specialty: selection.specialty,
       doctor: selection.doctor,
       consultorio: doctorInfo?.consultorio || '',
       date: selection.date,
       time: selection.time
-    });
+    };
+
+    if (editingApp) {
+      onUpdate(editingApp.id, appDetails);
+    } else {
+      onAdd(appDetails);
+    }
     setStep(4);
   };
 
@@ -121,7 +130,7 @@ const ScheduleAppointment = ({ onAdd }) => {
       case 3:
         return (
           <div className="space-y-6">
-            <h2 className="text-xl font-bold mb-4">Fecha y Horario</h2>
+            <h2 className="text-xl font-bold mb-4">{editingApp ? 'Nueva Fecha y Horario' : 'Fecha y Horario'}</h2>
             <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-100 dark:border-slate-800">
               <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Fecha</label>
               <input 
@@ -151,7 +160,7 @@ const ScheduleAppointment = ({ onAdd }) => {
                 onClick={handleConfirm}
                 className="w-full bg-primary py-4 rounded-xl font-bold text-black shadow-lg shadow-primary/30 disabled:opacity-50 hover:bg-primary-dark hover:text-white transition-all"
               >
-                CONFIRMAR CITA
+                {editingApp ? 'ACTUALIZAR CITA' : 'CONFIRMAR CITA'}
               </button>
             </div>
           </div>
@@ -162,8 +171,8 @@ const ScheduleAppointment = ({ onAdd }) => {
             <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="material-icons text-primary text-5xl">check_circle</span>
             </div>
-            <h2 className="text-3xl font-bold">¡Cita Agendada!</h2>
-            <p className="text-slate-500">Tu cita ha sido registrada exitosamente.</p>
+            <h2 className="text-3xl font-bold">{editingApp ? '¡Cita Reagendada!' : '¡Cita Agendada!'}</h2>
+            <p className="text-slate-500">{editingApp ? 'Tu cita ha sido actualizada exitosamente.' : 'Tu cita ha sido registrada exitosamente.'}</p>
             <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 text-left space-y-3">
               <p className="text-sm border-b pb-2"><span className="text-slate-500">Sede:</span> <span className="font-bold float-right">{selection.sede}</span></p>
               <p className="text-sm border-b pb-2"><span className="text-slate-500">Especialidad:</span> <span className="font-bold float-right">{selection.specialty}</span></p>

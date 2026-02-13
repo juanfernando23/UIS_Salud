@@ -60,12 +60,6 @@ const Dashboard = ({ user, appointments = [] }) => {
             <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">{user?.name || 'Usuario'}</h1>
           </div>
           <div className="flex items-center gap-2">
-            <button className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors relative">
-              <span className="material-icons text-slate-600 dark:text-slate-300">notifications_none</span>
-              {activeAppointments.length > 0 && (
-                <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-surface-dark"></span>
-              )}
-            </button>
             <div className="relative">
               <div className="w-10 h-10 rounded-full border-2 border-primary overflow-hidden flex items-center justify-center bg-primary/20">
                 <span className="material-icons text-primary text-xl">person</span>
